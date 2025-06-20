@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Terminal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background: #0c0c0c;
+            color: #00ff00;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .terminal {
+            width: 100%;
+            height: 100vh;
+            background: #0c0c0c;
+            border: 2px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .terminal-header {
+            background: #1e1e1e;
+            padding: 8px 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .close { background: #ff5f57; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #28ca42; }
+        
+        .terminal-title {
+            color: #888;
+            margin-left: 15px;
+            font-size: 12px;
+        }
+        
+        .terminal-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #0c0c0c;
+        }
+        
+        .output-line {
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+        
+        .prompt {
+            color: #00ff00;
+        }
+        
+        .command {
+            color: #ffffff;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+        
+        .info {
+            color: #74c0fc;
+        }
+        
+        .warning {
+            color: #ffd43b;
+        }
+        
+        .success {
+            color: #51cf66;
+        }
+        
+        .input-line {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .input-prompt {
+            color: #00ff00;
+            margin-right: 10px;
+        }
+        
+        #command-input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: inherit;
+            outline: none;
+            flex: 1;
+            caret-color: #00ff00;
+        }
+        
+        #command-input:focus {
+            caret-color: #00ff00;
+        }
+        
+        .cursor {
+            background: #00ff00;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .ascii-art {
+            color: #00ff00;
+            white-space: pre;
+            font-size: 10px;
+            line-height: 1.2;
+        }
+        
+        .section-title {
+            color: #ffbd2e;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            padding-bottom: 2px;
+            margin: 15px 0 10px 0;
+        }
+        
+        .skill-bar {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        
+        .skill-name {
+            width: 120px;
+            color: #74c0fc;
+        }
+        
+        .bar {
+            flex: 1;
+            height: 10px;
+            background: #333;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #ffbd2e);
+            transition: width 2s ease-in-out;
+        }
+        
+        .percentage {
+            color: #888;
+            font-size: 12px;
+        }
+        
+        .project-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #333;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .project-title {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .project-desc {
+            color: #ccc;
+            margin: 5px 0;
+        }
+        
+        .project-tech {
+            color: #74c0fc;
+            font-size: 12px;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typewriter 2s steps(40) 1s both;
+        }
+        
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        .help-command {
+            color: #74c0fc;
+            margin: 2px 0;
+        }
+        
+        .command-desc {
+            color: #888;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
+            <div class="terminal-title">Portfolio Terminal - C:\Users\Developer></div>
+        </div>
+        
+        <div class="terminal-body" id="terminal-output">
+            <div class="ascii-art">
+ ____            _    __       _ _       
+|  _ \ ___  _ __| |_ / _| ___ | (_) ___  
+| |_) / _ \| '__| __| |_ / _ \| | |/ _ \ 
+|  __/ (_) | |  | |_|  _| (_) | | | (_) |
+|_|   \___/|_|   \__|_|  \___/|_|_|\___/ 
+                                        
+ ____                 _                      
+|  _ \  _____   _____| | ___  _ __   ___ _ __ 
+| | | |/ _ \ \ / / _ \ |/ _ \| '_ \ / _ \ '__|
+| |_| |  __/\ V /  __/ | (_) | |_) |  __/ |   
+|____/ \___| \_/ \___|_|\___/| .__/ \___|_|   
+                             |_|              
+            </div>
+            
+            <div class="output-line">
+                <span class="info">Système initialisé avec succès...</span>
+            </div>
+            <div class="output-line">
+                <span class="success">Bienvenue dans mon portfolio interactif !</span>
+            </div>
+            <div class="output-line">
+                <span class="warning">Tapez 'help' pour voir les commandes disponibles</span>
+            </div>
+            <div class="output-line">
+                <span class="info">Version 2.1.0 - Dernière mise à jour: Juin 2025</span>
+            </div>
+            <br>
+            
+            <div class="input-line">
+                <span class="input-prompt">C:\Portfolio> </span>
+                <input type="text" id="command-input" autocomplete="off" autofocus>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const terminalOutput = document.getElementById('terminal-output');
+        const commandInput = document.getElementById('command-input');
+        
+        const commands = {
+            help: () => `
+<div class="section-title">COMMANDES DISPONIBLES:</div>
+<div class="help-command">about</div>
+<div class="command-desc">Affiche des informations sur moi</div>
+<div class="help-command">skills</div>
+<div class="command-desc">Liste mes compétences techniques</div>
+<div class="help-command">projects</div>
+<div class="command-desc">Affiche mes projets réalisés</div>
+<div class="help-command">contact</div>
+<div class="command-desc">Informations de contact</div>
+<div class="help-command">experience</div>
+<div class="command-desc">Mon parcours professionnel</div>
+<div class="help-command">education</div>
+<div class="command-desc">Ma formation</div>
+<div class="help-command">clear</div>
+<div class="command-desc">Efface l'écran</div>
+<div class="help-command">exit</div>
+<div class="command-desc">Ferme le terminal (redémarre)</div>`,
+
+            about: () => `
+<div class="section-title">À PROPOS</div>
+<div class="info">Nom:</div> Test Utilisateur
+<div class="info">Titre:</div> Développeur Full-Stack
+<div class="info">Localisation:</div> Paris, France
+<div class="info">Expérience:</div> 3+ années
+
+<div class="success">Description:</div>
+Passionné par le développement web et les nouvelles technologies.
+Spécialisé dans la création d'applications web modernes et performantes.
+Toujours à la recherche de nouveaux défis techniques et de projets innovants.`,
+
+            skills: () => {
+                setTimeout(() => {
+                    const bars = document.querySelectorAll('.bar-fill');
+                    bars.forEach(bar => {
+                        bar.style.width = bar.dataset.width;
+                    });
+                }, 100);
+                
+                return `
+<div class="section-title">COMPÉTENCES TECHNIQUES</div>
+<div class="skill-bar">
+    <div class="skill-name">JavaScript</div>
+    <div class="bar"><div class="bar-fill" data-width="90%" style="width: 0%"></div></div>
+    <div class="percentage">90%</div>
+</div>
+<div class="skill-bar">
+    <div class="skill-name">React</div>
+    <div class="bar"><div class="bar-fill" data-width="85%" style="width: 0%"></div></div>
+    <div class="percentage">85%</div>
+</div>
+<div class="skill-bar">
+    <div class="skill-name">Node.js</div>
+    <div class="bar"><div class="bar-fill" data-width="80%" style="width: 0%"></div></div>
+    <div class="percentage">80%</div>
+</div>
+<div class="skill-bar">
+    <div class="skill-name">Python</div>
+    <div class="bar"><div class="bar-fill" data-width="75%" style="width: 0%"></div></div>
+    <div class="percentage">75%</div>
+</div>
+<div class="skill-bar">
+    <div class="skill-name">CSS/SASS</div>
+    <div class="bar"><div class="bar-fill" data-width="88%" style="width: 0%"></div></div>
+    <div class="percentage">88%</div>
+</div>
+<div class="skill-bar">
+    <div class="skill-name">Git</div>
+    <div class="bar"><div class="bar-fill" data-width="85%" style="width: 0%"></div></div>
+    <div class="percentage">85%</div>
+</div>`;
+            },
+
+            projects: () => `
+<div class="section-title">PROJETS RÉALISÉS</div>
+<div class="project-item">
+    <div class="project-title">🚀 Plateforme E-commerce</div>
+    <div class="project-desc">Application complète de vente en ligne avec gestion des stocks et paiements</div>
+    <div class="project-tech">Technologies: React, Node.js, MongoDB, Stripe API</div>
+</div>
+<div class="project-item">
+    <div class="project-title">📱 App Mobile Météo</div>
+    <div class="project-desc">Application mobile cross-platform avec géolocalisation et notifications</div>
+    <div class="project-tech">Technologies: React Native, API OpenWeather, Firebase</div>
+</div>
+<div class="project-item">
+    <div class="project-title">🎮 Jeu Web Multijoueur</div>
+    <div class="project-desc">Jeu en temps réel avec système de chat et matchmaking</div>
+    <div class="project-tech">Technologies: Socket.io, Express, Canvas API</div>
+</div>
+<div class="project-item">
+    <div class="project-title">📊 Dashboard Analytics</div>
+    <div class="project-desc">Interface d'analyse de données avec graphiques interactifs</div>
+    <div class="project-tech">Technologies: Vue.js, D3.js, Python Flask</div>
+</div>`,
+
+            contact: () => `
+<div class="section-title">CONTACT</div>
+<div class="success">📧 Email:</div> uestutilisateur@exemple.com
+<div class="success">🔗 LinkedIn:</div> linkedin.com/in/TestUtilisateur
+<div class="success">🐙 GitHub:</div> github.com/TestUtilisateur
+<div class="success">🌐 Portfolio:</div> TestUtilisateur.com
+<div class="success">📱 Téléphone:</div> +33 0 00 00 00 00
+
+<div class="info">Disponible pour:</div>
+• Missions freelance
+• Contrats CDI/CDD
+• Projets collaboratifs
+• Conseils techniques`,
+
+            experience: () => `
+<div class="section-title">EXPÉRIENCE PROFESSIONNELLE</div>
+<div class="success">2022 - Présent | Développeur Full-Stack Senior</div>
+<div class="info">Tech Innovations SAS</div>
+• Développement d'applications web complexes
+• Leadership technique sur des projets stratégiques
+• Formation et mentorat des développeurs juniors
+
+<div class="success">2020 - 2022 | Développeur Front-End</div>
+<div class="info">Digital Agency Pro</div>
+• Création d'interfaces utilisateur modernes
+• Optimisation des performances web
+• Collaboration avec les équipes UX/UI
+
+<div class="success">2019 - 2020 | Développeur Junior</div>
+<div class="info">StartUp Innovante</div>
+• Développement de fonctionnalités
+• Maintenance et débogage
+• Apprentissage des bonnes pratiques`,
+
+            education: () => `
+<div class="section-title">FORMATION</div>
+<div class="success">2019 | Master Informatique</div>
+<div class="info">Université Paris Tech</div>
+• Spécialisation Développement Web
+• Projet de fin d'études: Intelligence Artificielle
+
+<div class="success">2017 | Licence Informatique</div>
+<div class="info">Université Paris Tech</div>
+• Bases de la programmation
+• Algorithmique et structures de données
+
+<div class="section-title">CERTIFICATIONS</div>
+• AWS Certified Developer
+• Google Analytics Certified
+• Scrum Master Certified`,
+
+            clear: () => {
+                // Efface tout le contenu et recrée la ligne d'input
+                terminalOutput.innerHTML = `
+                    <div class="input-line">
+                        <span class="input-prompt">C:\\Portfolio> </span>
+                        <input type="text" id="command-input" autocomplete="off" autofocus>
+                    </div>
+                `;
+                setupInputListeners();
+                return null; // Retourne null pour éviter l'affichage supplémentaire
+            },
+
+            exit: () => {
+                addOutput(`<span class="warning">Fermeture du terminal...</span>`);
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+                return null;
+            }
+        };
+
+        function addOutput(content, className = '') {
+            const outputDiv = document.createElement('div');
+            outputDiv.className = `output-line ${className}`;
+            outputDiv.innerHTML = content;
+            
+            const inputLine = document.querySelector('.input-line');
+            if (inputLine) {
+                terminalOutput.insertBefore(outputDiv, inputLine);
+            } else {
+                terminalOutput.appendChild(outputDiv);
+            }
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function processCommand(cmd) {
+            const command = cmd.toLowerCase().trim();
+            
+            if (commands[command]) {
+                // Affiche la commande tapée seulement si ce n'est pas clear ou exit
+                if (command !== 'clear' && command !== 'exit') {
+                    addOutput(`<span class="prompt">C:\\Portfolio> </span><span class="command">${cmd}</span>`);
+                }
+                
+                const result = commands[command]();
+                if (result !== null && result !== '') {
+                    addOutput(result);
+                }
+            } else if (command === '') {
+                // Ne rien faire pour une commande vide
+                return;
+            } else {
+                // Affiche la commande tapée pour les erreurs
+                addOutput(`<span class="prompt">C:\\Portfolio> </span><span class="command">${cmd}</span>`);
+                addOutput(`<span class="error">'${cmd}' n'est pas reconnu comme une commande interne ou externe.</span>`);
+                addOutput(`<span class="warning">Tapez 'help' pour voir les commandes disponibles.</span>`);
+            }
+        }
+
+        function setupInputListeners() {
+            const commandInput = document.getElementById('command-input');
+            if (commandInput) {
+                // Supprimer les anciens listeners pour éviter les doublons
+                commandInput.removeEventListener('keydown', handleKeydown);
+                commandInput.addEventListener('keydown', handleKeydown);
+                commandInput.focus();
+            }
+        }
+
+        function handleKeydown(e) {
+            if (e.key === 'Enter') {
+                const input = e.target;
+                processCommand(input.value);
+                input.value = '';
+            }
+        }
+
+        // Listener initial pour l'input
+        handleKeydown = handleKeydown.bind(this);
+        commandInput.addEventListener('keydown', handleKeydown);
+
+        // Auto-focus sur l'input
+        document.addEventListener('click', () => {
+            const input = document.getElementById('command-input');
+            if (input) input.focus();
+        });
+
+        // Configuration initiale des listeners
+        setupInputListeners();
+
+        // Message de démarrage après un court délai
+        setTimeout(() => {
+            addOutput(`<span class="success">Terminal prêt. Tapez une commande pour commencer...</span>`);
+        }, 1000);
+    </script>
+</body>
+</html>
