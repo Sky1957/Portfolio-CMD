@@ -18,7 +18,7 @@ Créer une expérience utilisateur originale et immersive pour consulter un CV i
 - 👤 `about` : présentation rapide  
 - 🧠 `skills` : compétences techniques animées  
 - 📂 `projects` : projets réalisés avec détails  
-- 📞 `contact` : informations pour me joindre  
+- 📞 `contact` : informations pour joindre  
 - 🧳 `experience` : historique professionnel  
 - 🎓 `education` : parcours scolaire et certifications  
 - 🧹 `clear` : nettoyage de l'écran  
