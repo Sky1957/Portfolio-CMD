@@ -10,6 +10,8 @@ Ce projet original vous permet d'explorer mon parcours professionnel via une int
 
 Créer une expérience utilisateur originale et immersive pour consulter un CV interactif via des commandes clavier.
 
+🔗 Lien de test : [Portfolio](https://sky1957.github.io/Portfolio-CMD/)
+
 ---
 
 ## ⚙️ Fonctionnalités
