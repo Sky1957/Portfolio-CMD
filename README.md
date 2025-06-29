@@ -1,8 +1,8 @@
 # Portfolio-CMD 🇫🇷
 # 🖥️ Portfolio Terminal Interactif
 
-Bienvenue dans mon **portfolio en ligne sous forme de terminal** !  
-Ce projet original vous permet d'explorer mon parcours professionnel via une interface inspirée d’un terminal de commande, en HTML/CSS/JS pur.
+Bienvenue dans ce portfolio en ligne interactif sous forme de terminal !
+Ce projet open source propose une interface inspirée d’un terminal de commande pour présenter un parcours professionnel ou un CV, le tout en HTML/CSS/JS pur.
 
 ---
 
@@ -72,8 +72,8 @@ start Portfolio-cmd.html
 # Portfolio-CMD 🇬🇧
 # 🖥️ Interactive Terminal Portfolio
 
-Welcome to my **online portfolio in the form of a terminal interface**!
-This unique project lets you explore my professional background through a command-line inspired UI, built entirely with HTML/CSS/Vanilla JS.
+Welcome to this interactive terminal-style online portfolio!
+This open-source project offers a command-line inspired interface to showcase a resume or professional background, built entirely with HTML, CSS, and Vanilla JS.
 
 ---
 
